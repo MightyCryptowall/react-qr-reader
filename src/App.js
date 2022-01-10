@@ -1,9 +1,10 @@
+import QrScanner from "./QrScanner";
 
 
 function App() {
   return (
     <div className="App">
-      Hello
+      <QrScanner/>
     </div>
   );
 }
