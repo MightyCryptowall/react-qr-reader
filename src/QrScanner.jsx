@@ -1,11 +1,14 @@
 import { useState } from "react";
-import QRScan from "./QrScan";
+import QrReader from 'react-qr-scanner'
 
 const QrScanner = () => {
-  const [state, setState] = useState({ value: "", watching: false });
+  const [state, setState] = useState({
+    delay: 100,
+    result: 'No result',
+  });
 
-  const onFind = (value) => {
-    setState({ value, watching: false });
+  const handleScan = (value) => {
+    setState({result: value });
   };
 
   const handleError = (err) => {
@@ -18,17 +21,13 @@ const QrScanner = () => {
   };
   return (
     <>
-      <h1 style={{color: state.watching ? "red" :"black"}}>QRScan Demo</h1>
-      {state.watching ? (
-        <div style={{width:"20vw"}}>
-          <QRScan onFind={onFind} />
-        </div>
-      ) : (
-        <>
-          <button onClick={() => setState({ watching: true })}>Scan</button>
-          <h4>value: {state.value}</h4>
-        </>
-      )}
+     <QrReader
+          delay={state.delay}
+          style={previewStyle}
+          onError={handleError}
+          onScan={handleScan}
+          />
+        <p>{state.result}</p>
     </>
   );
 };
